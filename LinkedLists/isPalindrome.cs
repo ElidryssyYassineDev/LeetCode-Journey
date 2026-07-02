@@ -11,23 +11,38 @@
  */
 public class Solution {
     public bool IsPalindrome(ListNode head) {
-        int idx = 0;
-        List<int> temp = new List<int>();
-        ListNode ptr = head;
-        while(head != null)
-        {
-            temp.Add(head.val) ;
-            head = head.next;
-            idx++;
+        
+        ListNode fast = head;
+        ListNode slow = head;
+        ListNode prev;
+        ListNode temp;
+        
+        //Floyd's algorithms
+        while (fast != null && fast.next != null){
+            fast = fast.next.next;
+            slow = slow.next;
         }
-        while (ptr != null)
-        {
-            if(temp[idx-1] != ptr.val)
-            {
+        
+        //Reversal
+        prev = slow;
+        slow = slow.next;
+        prev.next = null;
+        while(slow != null){
+            temp = slow.next;
+            slow.next = prev;
+            prev = slow;
+            slow = temp;
+        }
+        
+        //Comparaison
+        fast = head;
+        slow = prev;
+        while(slow != null){
+            if(slow.val != fast.val){
                 return false;
-            }
-            idx--;
-            ptr = ptr.next;
+            } 
+            fast = fast.next;
+            slow = slow.next;
         }
         return true;
     }
