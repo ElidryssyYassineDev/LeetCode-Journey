@@ -1,16 +1,9 @@
 public class Solution {
     public int ReverseDegree(string s) {
         int sum = 0;
-        Dictionary<char, int> hashmap = new Dictionary<char, int>();
-        char[] alphabets = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
-        int i = 26;
-        foreach(char alpha in alphabets){
-            hashmap.Add(alpha,i);
-            i--;
-        }
-
-        for (int j = 0; j < s.Length; j++){
-            sum += ((j+1) * hashmap[s[j]]);
+        //if z is 26 and a is 1, and we want a to return 26 and z to retun 1, 
+        for(int i = 0; i < s.Length; i++) {
+            sum += ('z' - s[i] + 1)*(i+1);
         }
         return sum;
     }
